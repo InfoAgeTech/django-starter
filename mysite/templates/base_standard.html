@@ -1,0 +1,51 @@
+{% extends 'base.html' %} 
+{% load i18n static compressed %}
+{% block style %}
+    <style type="text/css">
+        body { padding-top: 60px; padding-bottom: 40px; }
+    </style>
+    {% compressed_css 'standard' %}
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" type="text/css" media="screen, projection" />
+{% endblock %}
+
+{% block unsupported_browser_warning %}<!--[if lt IE 7]><div style='border:1px solid #F7941D;background:#FEEFDA;text-align:center;clear:both;height:75px;position:relative;'><div style='position:absolute;right:3px;top:3px;font-family:courier new;font-weight:bold;'><a href='#' onclick='javascript:this.parentNode.parentNode.style.display="none";return false;'><img src='{% static 'img/ie6nomore-cornerx.jpg' %}' style='border:none;' alt='{% trans 'Close this notice' %}' /></a></div><div style='width:640px;margin:0 auto;text-align:left;padding:0;overflow:hidden;color:black;'><div style='width:75px;float:left;'><img src='{{ MEDIA_URL }}img/ie6nomore-warning.jpg' alt='{% trans "Warning!" %}' /></div><div style='width:275px;float:left;font-family:Arial, sans-serif;'><div style='font-size:14px;font-weight:bold;margin-top:12px;'>{% trans 'You&#039;re using an unsupported browser' %}</div><div style='font-size:12px;margin-top:6px;line-height:12px;'>{% trans 'Please install or upgrade to use this site.' %}</div></div><div style='width:75px;float:left;'><a href='http://www.firefox.com' target='_blank'><img src='{{ MEDIA_URL }}img/ie6nomore-firefox.png' style='border:none;' alt='{% trans 'Get Firefox' %}' /></a></div><div style='width:75px;float:left;'><a href='http://www.google.com/chrome' target='_blank'><img src='{{ MEDIA_URL }}img/ie6nomore-chrome.png' style='border:none;' alt='{% trans 'Get Google Chrome' %}' /></a></div><div style='width:75px;float:left;'><a href='http://www.apple.com/safari/download/' target='_blank'><img src='{{ MEDIA_URL }}img/ie6nomore-safari.png' style='border:none;' alt='{% trans 'Get Safari' %}' /></a></div><div style='float:left;'><a href='http://www.browserforthebetter.com/download.html' target='_blank'><img src='{{ MEDIA_URL }}img/ie6nomore-ie.png' style='border:none;' alt='{% trans 'Upgrade Internet Explorer' %}' /></a></div></div></div><![endif]-->{% endblock %}
+
+{% block content_main %}
+    {% block breadcrumb_main %}{% endblock %}
+	<div class="row-fluid">
+	  <div class="{% block content_main_class %}span9{% endblock %}">
+	    {% include 'snippets/messages.html' %}
+	    {% block content %}{% endblock %}
+	  </div>
+	  {% block sidebar %}
+	  <div class="span3 sidebar">
+	    {% block sidebar_before %}{% endblock %}
+	    <nav class="well sidebar-nav">
+	      <ul class="nav nav-list">
+	        <li class="nav-header">{% trans 'Actions' %}</li>
+	        {% block sidebar_action_links %}{% endblock %}
+	      </ul>
+	    </nav>
+	    {% block sidebar_after %}{% endblock %}
+	  </div>
+	  {% endblock %}
+	</div>
+{% endblock %}
+
+{% block footer %}
+	<ul>
+		<li><a href="{% url 'faq' %}">{% trans 'FAQ' %}</a></li>
+		<li><a href="{% url 'privacy' %}">{% trans 'Privacy' %}</a></li>
+		<li><a href="{% url 'terms' %}">{% trans 'Terms' %}</a></li>
+	</ul>
+{% endblock footer %}
+
+{% block js %}
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    {% compressed_js 'standard' %}
+{% endblock %}
+
+{% block extra_js %}
+    {{ block.super }}
+{% endblock %}

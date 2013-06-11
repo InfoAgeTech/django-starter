@@ -1,0 +1,9 @@
+{% extends 'base_standard.html' %}
+{% load i18n %}
+{% block page_title %} {% trans "500 TODO: content title" %} - {% endblock %}
+{% block unsupported_browser_warning %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Oops!" %}</h1>
+<p>{% trans "TODO: content" %}</p>
+{% endblock %}

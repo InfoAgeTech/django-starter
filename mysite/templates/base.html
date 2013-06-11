@@ -1,0 +1,75 @@
+{% load i18n static %}<!DOCTYPE html><html class="nojs" lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>{% block full_title %}{% block page_title %}{% endblock page_title %}{{ SITE_NAME|escape }}{% endblock %}</title>
+{% block style %}{% endblock %}
+<script type="text/javascript"> 
+/*<![CDATA[*/
+var G_MEDIA_URL = "{{ MEDIA_URL }}";
+var G_CSRF_TOKEN = "{{ csrf_token }}";
+{% if user %}
+var G_USER_FIRST_NAME = "{{ user.first_name|escape }}";
+var G_USER_LAST_NAME = "{{ user.last_name|escape }}";
+var G_USER_FULL_NAME = "{{ user.get_full_name|escape }}";
+{% endif %}
+document.documentElement.className=document.documentElement.className.replace('nojs','js');
+/*]]>*/
+</script>
+{% block extra_head %}{% endblock %}
+</head>
+<body{% block body_attrs %} {% endblock %}>
+{% block unsupported_browser_warning %}{% endblock %}
+
+    <header class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <nav class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="{% url 'home' %}">{{ SITE_NAME|escape }}</a>
+          <div class="nav-collapse">
+            
+            {% if user.is_authenticated %}
+		    <ul class="nav">
+		        {% url 'home' as home_url %}<li{% if home_url == request.path %} class="active"{% endif %}><a href="{{ home_url }}">{% trans 'Overview' %}</a></li>
+		    </ul>
+		    <p class="navbar-text pull-right">
+                {% url 'account' as account_url %}<img src="{{ user.get_avatar_url }}" alt="Avatar" class="avatar" /> {% blocktrans with user.first_name|escape as first_name %}<a href="{{ account_url }}">{{ first_name }}</a>{% endblocktrans %}
+                | <a href="{% url 'logout' %}" class="logout">{% trans 'Logout' %}</a>
+            </p>
+		    {% else %}
+		    <ul class="nav">
+		        <li class="active"><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+		    </ul>
+		    <p class="navbar-text pull-right"><a href="#">{% trans 'Sign Up' %}</a></p>
+		    {% endif %}
+            
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    
+    <div class="container content {% block content_class %}{% endblock %}">{% block content_main %}{% endblock %}</div>
+	<hr/>
+	<footer class="footer"><div class="container"><nav>{% block footer %}{% endblock %}</nav></div></footer>
+	
+	{% block js %}{% endblock %}
+	<script type="text/javascript"> 
+	/*<![CDATA[*/       
+	{% block extra_js %}{% endblock %}
+	
+	{% if DEPLOYMENT_MODE == 'prod' or DEPLOYMENT_MODE == 'test' %}
+		{% comment %}Google analytics.  Set account with my account number{% endcomment %}
+		 var _gaq=_gaq || [];_gaq.push(['_setAccount','ACCOUNT_NUMBER_HERE']);_gaq.push(['_trackPageview']);
+		 (function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;
+		  ga.src=('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);
+		 })();
+	{% endif %}
+	
+	/*]]>*/
+	</script>
+</body></html>

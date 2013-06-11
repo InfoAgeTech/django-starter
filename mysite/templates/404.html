@@ -1,0 +1,13 @@
+{% extends request.base_template %}
+{% load i18n %}
+{% block page_title %} {% trans "Page Not Found" %} - {% endblock %}
+{% block unsupported_browser_warning %}{% endblock %}
+{% block content %}
+	{% if request.error_msg %}
+		<h1>{% trans "Page Not Available" %}</h1>
+		<p>{{ request.error_msg|escape|linebreaks }}</p>
+	{% else %}
+		<h1>{% trans "Page Not Found" %}</h1>
+		<p>{% trans "We tried, but we couldn&#039;t find the page you were looking for." %}</p>
+	{% endif %}
+{% endblock %}

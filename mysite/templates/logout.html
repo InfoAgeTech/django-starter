@@ -1,0 +1,11 @@
+{% extends request.base_template %}
+{% load i18n %}
+{% block page_title %} {% trans 'Sign Out' %} - {% endblock %}
+{% block content %}
+<h1>{% trans 'Sign Out' %}</h1>
+<p>Are you sure you want to log out of {{ SITE_NAME|escape }}</p> 
+<form method="post" action="{% url 'logout' %}">
+	{% csrf_token %}
+	<fieldset><input class="btn btn-primary" type="submit" value="{% trans 'Sign Out' %}" /></fieldset>
+</form>
+{% endblock %}
