@@ -4,16 +4,16 @@
 {% block content_main %}
  
 <div class="row">
-    <div class="span8">
+    <div class="col-md-8">
 		<div class="hero-unit">
 		  <h1>Hello, world!</h1>
 		  <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-		  <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+		  <p><a class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 		</div>
 	</div>
-	<div class="span4">
+	<div class="col-md-4">
 	   <h2>{% trans 'Login' %}</h2>
-	   <form class="form-vertical" method="post" action="{% url 'login' %}">
+	   <form method="post" action="{% url 'login' %}">
 		    {% csrf_token %}
 		    <fieldset><input class="btn btn-primary" type="submit" value="{% trans 'Sign In' %}" /></fieldset>
 		</form>
@@ -22,17 +22,17 @@
 </div>
 
 <div class="row">
-  <div class="span4">
+  <div class="col-md-4">
     <h2>{% trans 'Some Header 1' %}</h2>
      <p>{% trans "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Sed eleifend nonummy diam. Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. Suspendisse vulputate aliquam dui. Nulla elementum dui ut augue. Aliquam vehicula mi at mauris. Maecenas placerat, nisl at consequat rhoncus, sem nunc gravida justo, quis eleifend arcu velit quis lacus. Morbi magna magna, tincidunt a, mattis non, imperdiet vitae, tellus. Sed odio est, auctor ac, sollicitudin in, consequat vitae, orci. Fusce id felis. Vivamus sollicitudin metus eget eros." %}</p>
     <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <h2>{% trans 'Some Header 2' %}</h2>
      <p>{% trans "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Sed eleifend nonummy diam. Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. Suspendisse vulputate aliquam dui. Nulla elementum dui ut augue. Aliquam vehicula mi at mauris. Maecenas placerat, nisl at consequat rhoncus, sem nunc gravida justo, quis eleifend arcu velit quis lacus. Morbi magna magna, tincidunt a, mattis non, imperdiet vitae, tellus. Sed odio est, auctor ac, sollicitudin in, consequat vitae, orci. Fusce id felis. Vivamus sollicitudin metus eget eros." %}</p>
     <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <h2>{% trans 'Some Header 3' %}</h2>
     <p>{% trans "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Nam cursus. Morbi ut mi. Nullam enim leo, egestas id, condimentum at, laoreet mattis, massa. Sed eleifend nonummy diam. Praesent mauris ante, elementum et, bibendum at, posuere sit amet, nibh. Duis tincidunt lectus quis dui viverra vestibulum. Suspendisse vulputate aliquam dui. Nulla elementum dui ut augue. Aliquam vehicula mi at mauris. Maecenas placerat, nisl at consequat rhoncus, sem nunc gravida justo, quis eleifend arcu velit quis lacus. Morbi magna magna, tincidunt a, mattis non, imperdiet vitae, tellus. Sed odio est, auctor ac, sollicitudin in, consequat vitae, orci. Fusce id felis. Vivamus sollicitudin metus eget eros." %}</p>
     <p><a class="btn btn-primary" href="#">View details &raquo;</a></p>
