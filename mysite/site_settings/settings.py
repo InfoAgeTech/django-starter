@@ -32,7 +32,7 @@ SITE_ID = 1
 USE_I18N = True
 
 # The site name that appears throughout the site.
-SITE_NAME = unicode('My Site Name')
+SITE_NAME = 'My Site Name'
 
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
