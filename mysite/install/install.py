@@ -3,7 +3,7 @@
 """
 Creates a new instance of a django site based on the django-starter project at:
 
-https://github.com/InfoAgeTech/django-starter
+https://github.com/infoagetech/django-starter
 """
 import shlex
 import subprocess
@@ -17,7 +17,7 @@ def main():
     """Project initializer to start a new project from scratch based on the 
     django-starter project:
     
-    https://github.com/InfoAgeTech/django-starter
+    https://github.com/infoagetech/django-starter
     
     TODO
     ====
