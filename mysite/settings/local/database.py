@@ -1,8 +1,9 @@
-from mysite.site_settings.settings import here
+from mysite.settings.base import here
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': here('mysite.sqlite'),
+        'NAME': here('test_db.db'),
     }
 }

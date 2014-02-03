@@ -2,7 +2,14 @@
 .pydevproject
 .DS_Store
 *.pyc
+*.log
 *.db
 .settings
 .idea
+/collected_static
+/.coverage
+*status.dat
+/tests/coverage
 __pycache__
+/*/static/less/*.css
+/*/settings/local/mine.py

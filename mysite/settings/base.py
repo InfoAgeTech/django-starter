@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import os
 import sys
-import manage
 
 # Do not run in DEBUG in production!!!
 DEBUG = False
@@ -62,13 +62,15 @@ MIDDLEWARE_CLASSES = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
-    # 'social_auth.backends.google.GoogleOAuthBackend',
-    'social_auth.backends.google.GoogleOAuth2Backend',
-    # 'social_auth.backends.google.GoogleBackend',
-    # 'social_auth.backends.yahoo.YahooBackend',
-    # 'social_auth.backends.OpenIDBackend',
+    'social.backends.twitter.TwitterOAuth',
+    'social.backends.facebook.FacebookOAuth2',
+    'social.backends.google.GoogleOAuth2',
+    # TODO: when upgrading to django 1.6, see:
+    # http://psa.matiasaguirre.net/docs/configuration/django.html#django-1-6
+    # 'social.apps.django_app.utils.BackendWrapper',
+    # 'social.backends.google.GoogleOpenId',
+    # 'social.backends.google.GoogleOAuth',
+    # 'social.backends.yahoo.YahooOpenId',
 )
 
 ROOT_URLCONF = 'mysite.urls'
@@ -84,7 +86,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'mysite',
     'pipeline',
-    'social_auth',
+    'social.apps.django_app.default',
 )
 
 TEMPLATE_DIRS = (
@@ -92,6 +94,7 @@ TEMPLATE_DIRS = (
 )
 
 LOGIN_URL = '/login'
+LOGIN_ERROR_URL = LOGIN_URL
 LOGIN_REDIRECT_URL = '/'
 STATIC_URL = '/static/'
 MEDIA_URL = ''
@@ -113,16 +116,24 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # Define if you're using a different user model.
 # AUTH_USER_MODEL = 'my_app_name.User'
 
-SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
+# Used for python-social-auth
+SOCIAL_AUTH_DEFAULT_USERNAME = 'social_'
+SOCIAL_AUTH_UUID_LENGTH = 22
+SOCIAL_AUTH_SLUGIFY_USERNAMES = True
+SOCIAL_AUTH_CLEAN_USERNAMES = True
 # Uncomment if using a custom user model
 # SOCIAL_AUTH_USER_MODEL = AUTH_USER_MODEL
 
 SOCIAL_AUTH_PIPELINE = (
-    'social_auth.backends.pipeline.social.social_auth_user',
-    'social_auth.backends.pipeline.user.get_username',
-    'social_auth.backends.pipeline.social.associate_user',
-    'social_auth.backends.pipeline.social.load_extra_data',
-    'social_auth.backends.pipeline.user.update_user_details',
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.associate_by_email',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
 )
 
 # Specific extra social auth permissions needed.
@@ -138,11 +149,9 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # SESSION_ENGINE = 'mongoengine.django.sessions'
 SESSION_COOKIE_AGE = 60 * 60 * 12  # Session cookie for 12 hours
 
-# Added in django 1.5 secret key is required.  This is a random generated string.
 # Change this to some unique string.
 SECRET_KEY = '123456789abcdefg'
 
-# Added in django 1.4.4. See: https://docs.djangoproject.com/en/1.4/releases/1.4.4/#host-header-poisoning
 ALLOWED_HOSTS = ['*']
 
 from .settings_pipeline import *
@@ -150,7 +159,7 @@ from .settings_pipeline import *
 try:
     from .settings_deployment import *
 except ImportError:
-    from .settings_local import *
+    from .local.base import *
 
 if 'test' in sys.argv:
     # Run tests in memory
